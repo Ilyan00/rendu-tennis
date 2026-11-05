@@ -7,4 +7,12 @@ describe("Jeu", () => {
 
     expect(jeu.score()).toBe("Zéro-Zéro");
   });
+
+  it("annonce Quinze quand un joueur a marqué un point", () => {
+    const jeu = new Jeu("Alice", "Bob");
+
+    jeu.pointPour("Alice");
+
+    expect(jeu.score()).toBe("Quinze-Zéro");
+  });
 });
