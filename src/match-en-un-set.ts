@@ -11,7 +11,19 @@ export class MatchEnUnSet {
     private joueur2: string,
     private classement: Classement,
   ) {
-    this.jeuEnCours = new Jeu(joueur1, joueur2, {
+    this.jeuEnCours = this.nouveauJeu();
+  }
+  private jeuGagnePar(vainqueur: string): void {
+    if (vainqueur === this.joueur1) {
+      this.jeux1++;
+    } else {
+      this.jeux2++;
+    }
+    this.jeuEnCours = this.nouveauJeu();
+  }
+
+  private nouveauJeu(): Jeu {
+    return new Jeu(this.joueur1, this.joueur2, {
       enregistrer: (vainqueur) => this.jeuGagnePar(vainqueur),
     });
   }
@@ -26,13 +38,5 @@ export class MatchEnUnSet {
 
   jeuxGagnes(joueur: string): number {
     return joueur === this.joueur1 ? this.jeux1 : this.jeux2;
-  }
-
-  private jeuGagnePar(vainqueur: string): void {
-    if (vainqueur === this.joueur1) {
-      this.jeux1++;
-    } else {
-      this.jeux2++;
-    }
   }
 }
