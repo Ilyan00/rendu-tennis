@@ -37,7 +37,8 @@ export class MatchEnUnSet {
   score(): string {
     const vainqueur = this.vainqueur();
     if (vainqueur) {
-      return `Victoire ${vainqueur} ${this.jeux1}-${this.jeux2}`;
+      const perdant = vainqueur === this.joueur1 ? this.joueur2 : this.joueur1;
+      return `Victoire ${vainqueur} ${this.jeuxGagnes(vainqueur)}-${this.jeuxGagnes(perdant)}`;
     }
     return this.jeuEnCours.score();
   }
