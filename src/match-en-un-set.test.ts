@@ -40,4 +40,15 @@ describe("MatchEnUnSet", () => {
 
     expect(match.score()).toBe("Victoire Alice 4-0");
   });
+
+  it("annonce la victoire avec les jeux du vainqueur en premier", () => {
+    const match = new MatchEnUnSet("Alice", "Bob", classementInutile);
+
+    gagnerUnJeu(match, "Alice");
+    for (let i = 0; i < 4; i++) {
+      gagnerUnJeu(match, "Bob");
+    }
+
+    expect(match.score()).toBe("Victoire Bob 4-1");
+  });
 });
