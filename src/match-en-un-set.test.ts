@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { MatchEnUnSet } from "./match-en-un-set";
 
 function gagnerUnJeu(match: MatchEnUnSet, joueur: string) {
@@ -50,5 +50,19 @@ describe("MatchEnUnSet", () => {
     }
 
     expect(match.score()).toBe("Victoire Bob 4-1");
+  });
+
+  // Spy : je veux vérifier que le classement reçoit le résultat du match une seule fois, et pas celui de chaque jeu. Un stub ne retient pas ses appels.
+  it("enregistre le résultat du match, pas celui de chaque jeu", () => {
+    const classement = { enregistrer: vi.fn() };
+    const match = new MatchEnUnSet("Alice", "Bob", classement);
+
+    gagnerUnJeu(match, "Bob");
+    for (let i = 0; i < 4; i++) {
+      gagnerUnJeu(match, "Alice");
+    }
+
+    expect(classement.enregistrer).toHaveBeenCalledOnce();
+    expect(classement.enregistrer).toHaveBeenCalledWith("Alice", "Bob");
   });
 });
