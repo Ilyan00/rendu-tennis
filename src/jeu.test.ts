@@ -15,4 +15,13 @@ describe("Jeu", () => {
 
     expect(jeu.score()).toBe("Quinze-Zéro");
   });
+
+  it("annonce A quand les deux joueurs ont le même score", () => {
+    const jeu = new Jeu("Alice", "Bob");
+
+    jeu.pointPour("Alice");
+    jeu.pointPour("Bob");
+
+    expect(jeu.score()).toBe("Quinze-A");
+  });
 });
