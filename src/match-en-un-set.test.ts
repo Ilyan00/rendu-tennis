@@ -30,4 +30,14 @@ describe("MatchEnUnSet", () => {
 
     expect(match.score()).toBe("Zéro-Quinze");
   });
+
+  it("le premier à 4 jeux gagne le match", () => {
+    const match = new MatchEnUnSet("Alice", "Bob", classementInutile);
+
+    for (let i = 0; i < 4; i++) {
+      gagnerUnJeu(match, "Alice");
+    }
+
+    expect(match.score()).toBe("Victoire Alice 4-0");
+  });
 });
