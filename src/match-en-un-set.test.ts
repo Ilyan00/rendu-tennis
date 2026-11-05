@@ -21,4 +21,13 @@ describe("MatchEnUnSet", () => {
 
     expect(match.jeuxGagnes("Alice")).toBe(1);
   });
+
+  it("un nouveau jeu commence après chaque jeu gagné", () => {
+    const match = new MatchEnUnSet("Alice", "Bob", classementInutile);
+
+    gagnerUnJeu(match, "Alice");
+    match.pointPour("Bob");
+
+    expect(match.score()).toBe("Zéro-Quinze");
+  });
 });
