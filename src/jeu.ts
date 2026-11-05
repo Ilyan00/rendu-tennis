@@ -13,6 +13,10 @@ export class Jeu {
   ) {}
 
   pointPour(joueur: string): void {
+    if (this.points1 === 4 || this.points2 === 4) {
+      return;
+    }
+
     if (joueur === this.joueur1) {
       this.points1++;
     } else {
