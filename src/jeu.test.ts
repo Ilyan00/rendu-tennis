@@ -32,7 +32,6 @@ describe("Jeu", () => {
       jeu.pointPour("Alice");
       jeu.pointPour("Bob");
     }
-
     expect(jeu.score()).toBe("Égalité");
   });
 });

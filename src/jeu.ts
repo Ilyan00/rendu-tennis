@@ -18,7 +18,9 @@ export class Jeu {
   }
 
   score(): string {
-    // À 0-0, l'énoncé annonce "Zéro-Zéro" et non "Zéro-A"
+    if (this.points1 === this.points2 && this.points1 === 3) {
+      return "Égalité";
+    }
     if (this.points1 === this.points2 && this.points1 > 0) {
       return `${ANNONCES[this.points1]}-A`;
     }
