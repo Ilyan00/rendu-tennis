@@ -15,6 +15,7 @@ export class MatchEnUnSet {
   ) {
     this.jeuEnCours = this.nouveauJeu();
   }
+
   private jeuGagnePar(vainqueur: string): void {
     if (vainqueur === this.joueur1) {
       this.jeux1++;
@@ -24,9 +25,7 @@ export class MatchEnUnSet {
 
     const vainqueurDuMatch = this.vainqueur();
     if (vainqueurDuMatch) {
-      const perdant =
-        vainqueurDuMatch === this.joueur1 ? this.joueur2 : this.joueur1;
-      this.classement.enregistrer(vainqueurDuMatch, perdant);
+      this.classement.enregistrer(vainqueurDuMatch, this.adversaire(vainqueurDuMatch));
       return;
     }
 
@@ -46,8 +45,7 @@ export class MatchEnUnSet {
   score(): string {
     const vainqueur = this.vainqueur();
     if (vainqueur) {
-      const perdant = vainqueur === this.joueur1 ? this.joueur2 : this.joueur1;
-      return `Victoire ${vainqueur} ${this.jeuxGagnes(vainqueur)}-${this.jeuxGagnes(perdant)}`;
+      return `Victoire ${vainqueur} ${this.jeuxGagnes(vainqueur)}-${this.jeuxGagnes(this.adversaire(vainqueur))}`;
     }
     return this.jeuEnCours.score();
   }
@@ -60,5 +58,9 @@ export class MatchEnUnSet {
 
   jeuxGagnes(joueur: string): number {
     return joueur === this.joueur1 ? this.jeux1 : this.jeux2;
+  }
+
+  private adversaire(joueur: string): string {
+    return joueur === this.joueur1 ? this.joueur2 : this.joueur1;
   }
 }

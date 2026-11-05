@@ -6,6 +6,7 @@ function gagnerUnJeu(match: MatchEnUnSet, joueur: string) {
 }
 
 describe("MatchEnUnSet", () => {
+  // Dummy : le constructeur demande un classement mais ces tests ne s'en servent pas, donc un objet vide suffit.
   const classementInutile = { enregistrer: () => {} };
 
   it("commence à Zéro-Zéro", () => {
