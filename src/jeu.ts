@@ -1,6 +1,8 @@
 import type { Classement } from "./classement";
 
 const ANNONCES = ["Zéro", "Quinze", "Trente", "Quarante"];
+const QUARANTE = 3;
+const POINTS_POUR_GAGNER = 4;
 
 export class Jeu {
   private points1 = 0;
@@ -13,7 +15,7 @@ export class Jeu {
   ) {}
 
   pointPour(joueur: string): void {
-    if (this.points1 === 4 || this.points2 === 4) {
+    if (this.vainqueur()) {
       return;
     }
 
@@ -23,31 +25,30 @@ export class Jeu {
       this.points2++;
     }
 
-    if (this.points1 === 4) {
-      this.classement.enregistrer(this.joueur1, this.joueur2);
-    }
-    if (this.points2 === 4) {
-      this.classement.enregistrer(this.joueur2, this.joueur1);
+    const vainqueur = this.vainqueur();
+    if (vainqueur) {
+      const perdant = vainqueur === this.joueur1 ? this.joueur2 : this.joueur1;
+      this.classement.enregistrer(vainqueur, perdant);
     }
   }
 
   score(): string {
-    // VICTOIRE
-    if (this.points1 === 4) {
-      return `Victoire ${this.joueur1}`;
+    const vainqueur = this.vainqueur();
+    if (vainqueur) {
+      return `Victoire ${vainqueur}`;
     }
-    if (this.points2 === 4) {
-      return `Victoire ${this.joueur2}`;
-    }
-    // MEME POINTS
-    if (this.points1 === this.points2 && this.points1 === 3) {
+    if (this.points1 === this.points2 && this.points1 === QUARANTE) {
       return "Égalité";
     }
     if (this.points1 === this.points2 && this.points1 > 0) {
       return `${ANNONCES[this.points1]}-A`;
     }
-
-    //SCORE BASIQUE
     return `${ANNONCES[this.points1]}-${ANNONCES[this.points2]}`;
+  }
+
+  private vainqueur(): string | null {
+    if (this.points1 === POINTS_POUR_GAGNER) return this.joueur1;
+    if (this.points2 === POINTS_POUR_GAGNER) return this.joueur2;
+    return null;
   }
 }
