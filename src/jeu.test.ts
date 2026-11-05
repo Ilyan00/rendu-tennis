@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { Jeu } from "./jeu";
 
 describe("Jeu", () => {
@@ -55,5 +55,19 @@ describe("Jeu", () => {
     jeu.pointPour("Bob");
 
     expect(jeu.score()).toBe("Victoire Bob");
+  });
+
+  // Spy : on veut vérifier que le jeu appelle bien le classement, avec quels
+  // arguments et combien de fois. Un stub ne suffirait pas : il sert à renvoyer
+  // des valeurs, or enregistrer() ne renvoie rien, seul l'appel compte.
+  it("enregistre le vainqueur puis le perdant à la fin du match", () => {
+    const classement = { enregistrer: vi.fn() };
+    const jeu = new Jeu("Alice", "Bob", classement);
+
+    for (let i = 0; i < 4; i++) {
+      jeu.pointPour("Alice");
+    }
+
+    expect(classement.enregistrer).toHaveBeenCalledWith("Alice", "Bob");
   });
 });
