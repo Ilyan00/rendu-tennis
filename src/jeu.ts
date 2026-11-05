@@ -1,3 +1,5 @@
+import type { Classement } from "./classement";
+
 const ANNONCES = ["Zéro", "Quinze", "Trente", "Quarante"];
 
 export class Jeu {
@@ -7,6 +9,7 @@ export class Jeu {
   constructor(
     private joueur1: string,
     private joueur2: string,
+    private classement: Classement,
   ) {}
 
   pointPour(joueur: string): void {
@@ -14,6 +17,13 @@ export class Jeu {
       this.points1++;
     } else {
       this.points2++;
+    }
+
+    if (this.points1 === 4) {
+      this.classement.enregistrer(this.joueur1, this.joueur2);
+    }
+    if (this.points2 === 4) {
+      this.classement.enregistrer(this.joueur2, this.joueur1);
     }
   }
 
