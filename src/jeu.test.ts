@@ -67,4 +67,18 @@ describe("Jeu", () => {
 
     expect(classement.enregistrer).toHaveBeenCalledWith("Alice", "Bob");
   });
+
+  it("enregistre le résultat une seule fois, même si on marque après la fin", () => {
+    const classement = { enregistrer: vi.fn() };
+    const jeu = new Jeu("Alice", "Bob", classement);
+
+    for (let i = 0; i < 3; i++) {
+      jeu.pointPour("Alice");
+      jeu.pointPour("Bob");
+    }
+    jeu.pointPour("Alice");
+    jeu.pointPour("Bob");
+
+    expect(classement.enregistrer).toHaveBeenCalledOnce();
+  });
 });
