@@ -44,4 +44,16 @@ describe("Jeu", () => {
 
     expect(jeu.score()).toBe("Victoire Alice");
   });
+
+  it("à Égalité, le point suivant gagne le match", () => {
+    const jeu = new Jeu("Alice", "Bob");
+
+    for (let i = 0; i < 3; i++) {
+      jeu.pointPour("Alice");
+      jeu.pointPour("Bob");
+    }
+    jeu.pointPour("Bob");
+
+    expect(jeu.score()).toBe("Victoire Bob");
+  });
 });
