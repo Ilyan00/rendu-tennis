@@ -1,6 +1,8 @@
 import type { Classement } from "./classement";
 import { Jeu } from "./jeu";
 
+const JEUX_POUR_GAGNER = 4;
+
 export class MatchEnUnSet {
   private jeuEnCours: Jeu;
   private jeux1 = 0;
@@ -33,7 +35,17 @@ export class MatchEnUnSet {
   }
 
   score(): string {
+    const vainqueur = this.vainqueur();
+    if (vainqueur) {
+      return `Victoire ${vainqueur} ${this.jeux1}-${this.jeux2}`;
+    }
     return this.jeuEnCours.score();
+  }
+
+  private vainqueur(): string | null {
+    if (this.jeux1 === JEUX_POUR_GAGNER) return this.joueur1;
+    if (this.jeux2 === JEUX_POUR_GAGNER) return this.joueur2;
+    return null;
   }
 
   jeuxGagnes(joueur: string): number {
