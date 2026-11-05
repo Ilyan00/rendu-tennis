@@ -24,4 +24,15 @@ describe("Jeu", () => {
 
     expect(jeu.score()).toBe("Quinze-A");
   });
+
+  it("annonce Égalité à Quarante partout", () => {
+    const jeu = new Jeu("Alice", "Bob");
+
+    for (let i = 0; i < 3; i++) {
+      jeu.pointPour("Alice");
+      jeu.pointPour("Bob");
+    }
+
+    expect(jeu.score()).toBe("Égalité");
+  });
 });
