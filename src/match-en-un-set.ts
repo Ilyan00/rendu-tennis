@@ -21,6 +21,15 @@ export class MatchEnUnSet {
     } else {
       this.jeux2++;
     }
+
+    const vainqueurDuMatch = this.vainqueur();
+    if (vainqueurDuMatch) {
+      const perdant =
+        vainqueurDuMatch === this.joueur1 ? this.joueur2 : this.joueur1;
+      this.classement.enregistrer(vainqueurDuMatch, perdant);
+      return;
+    }
+
     this.jeuEnCours = this.nouveauJeu();
   }
 
